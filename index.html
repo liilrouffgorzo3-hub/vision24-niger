@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radio Télévision Vision 24 Niger - Tout voir, tout savoir!</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#F26522',
+                            orangeHover: '#d95314',
+                            green: '#008751',
+                            greenDark: '#005c37',
+                            dark: '#0f172a',
+                            black: '#070b12',
+                            card: '#121a29',
+                            cardBorder: '#1e293b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #070b12;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070b12;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F26522;
+        }
+
+        /* Glassmorphism Effect */
+        .glass-header {
+            background: rgba(7, 11, 18, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: rgba(18, 26, 41, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* Video Gradient Overlay */
+        .hero-overlay {
+            background: linear-gradient(0deg, #070b12 0%, rgba(7,11,18,0.7) 40%, rgba(7,11,18,0.2) 100%),
+                        linear-gradient(90deg, #070b12 0%, rgba(7,11,18,0.85) 45%, transparent 100%);
+        }
+
+        /* Equalizer Animation for Radio */
+        .bar {
+            width: 3px;
+            background-color: #F26522;
+            animation: equalizer 1.2s infinite ease-in-out;
+            border-radius: 2px;
+        }
+        .bar:nth-child(1) { height: 10px; animation-delay: 0.1s; }
+        .bar:nth-child(2) { height: 24px; animation-delay: 0.3s; }
+        .bar:nth-child(3) { height: 14px; animation-delay: 0.2s; }
+        .bar:nth-child(4) { height: 28px; animation-delay: 0.4s; }
+        .bar:nth-child(5) { height: 18px; animation-delay: 0.15s; }
+
+        @keyframes equalizer {
+            0%, 100% { transform: scaleY(0.3); }
+            50% { transform: scaleY(1.1); }
+        }
+
+        .paused .bar {
+            animation-play-state: paused;
+            height: 4px !important;
+        }
+
+        /* Hide scrollbar for carousel */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-brand-orange selection:text-white">
+
+    <!-- TOP NAVIGATION BAR -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 lg:px-12 py-3 flex items-center justify-between glass-header">
+        <div class="flex items-center space-x-8">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="relative w-11 h-11 bg-gradient-to-br from-brand-orange via-white to-brand-green p-0.5 rounded-xl shadow-lg shadow-brand-orange/20 flex items-center justify-center">
+                    <div class="w-full h-full bg-brand-black rounded-[10px] flex items-center justify-center font-black text-xl tracking-tighter">
+                        <span class="text-brand-orange">V</span><span class="text-brand-green">24</span>
+                    </div>
+                    <span class="absolute -top-1 -right-1 flex h-3 w-3">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-orange opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-orange"></span>
+                    </span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-black text-lg md:text-xl tracking-wider uppercase leading-none text-white">VISION <span class="text-brand-orange">24</span></span>
+                    <span class="text-[9px] font-bold tracking-widest text-brand-green uppercase">NIGER • DOSSO</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Menu -->
+            <nav class="hidden xl:flex items-center space-x-6 text-sm font-medium text-gray-300">
+                <a href="#hero" class="hover:text-brand-orange transition-colors text-white font-semibold">Accueil</a>
+                <a href="#live-tv" class="hover:text-brand-orange transition-colors flex items-center gap-1.5"><i class="fa-solid fa-tv text-xs text-brand-orange"></i> Direct TV</a>
+                <a href="#radio-section" class="hover:text-brand-orange transition-colors flex items-center gap-1.5"><i class="fa-solid fa-radio text-xs text-brand-green"></i> Radio 95.1 FM</a>
+                <a href="#catalog" class="hover:text-brand-orange transition-colors">Grille & Replay</a>
+                <a href="#services" class="hover:text-brand-orange transition-colors text-brand-orange font-semibold"><i class="fa-solid fa-briefcase"></i> Prestations & Devis</a>
+                <a href="#contact" class="hover:text-brand-orange transition-colors">Contact</a>
+            </nav>
+        </div>
+
+        <!-- Right Side Actions -->
+        <div class="flex items-center space-x-4">
+            <!-- Search Toggle -->
+            <div class="relative hidden sm:block">
+                <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Rechercher émission, sujet..." class="bg-slate-900/90 border border-slate-700/60 text-xs text-white rounded-full pl-9 pr-4 py-2 w-44 md:w-60 focus:outline-none focus:border-brand-orange transition-all placeholder-gray-400">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400 text-xs"></i>
+            </div>
+
+            <!-- Booking Shortcut Button -->
+            <button onclick="openBookingModal()" class="hidden md:flex items-center space-x-2 bg-gradient-to-r from-brand-orange to-brand-green hover:opacity-90 text-white font-bold text-xs uppercase px-4 py-2.5 rounded-full shadow-lg shadow-brand-orange/20 transition-transform active:scale-95">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>Commander un service</span>
+            </button>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button onclick="toggleMobileMenu()" class="xl:hidden text-gray-300 hover:text-white p-2">
+                <i class="fa-solid fa-bars text-xl" id="menuIcon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- MOBILE NAVIGATION MENU -->
+    <div id="mobileMenu" class="fixed inset-0 bg-brand-black/95 z-40 hidden flex-col justify-between pt-24 pb-8 px-6 backdrop-blur-xl transition-all">
+        <div class="flex flex-col space-y-6 text-lg font-semibold">
+            <input type="text" oninput="handleSearch()" placeholder="Rechercher émission, direct..." class="bg-slate-800 border border-slate-700 text-sm text-white rounded-xl p-3 w-full mb-2">
+            <a href="#hero" onclick="toggleMobileMenu()" class="text-white hover:text-brand-orange flex items-center gap-3"><i class="fa-solid fa-house text-brand-orange"></i> Accueil</a>
+            <a href="#live-tv" onclick="toggleMobileMenu()" class="text-white hover:text-brand-orange flex items-center gap-3"><i class="fa-solid fa-tv text-brand-orange"></i> Direct TV (Live)</a>
+            <a href="#radio-section" onclick="toggleMobileMenu()" class="text-white hover:text-brand-orange flex items-center gap-3"><i class="fa-solid fa-radio text-brand-green"></i> Radio 95.1 MHz</a>
+            <a href="#catalog" onclick="toggleMobileMenu()" class="text-white hover:text-brand-orange flex items-center gap-3"><i class="fa-solid fa-film"></i> Replay & Grille TV</a>
+            <a href="#services" onclick="toggleMobileMenu()" class="text-brand-orange flex items-center gap-3"><i class="fa-solid fa-briefcase"></i> Nos Prestations & Devis</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="text-white hover:text-brand-orange flex items-center gap-3"><i class="fa-solid fa-address-book"></i> Contact & Siège</a>
+        </div>
+        <div class="pt-6 border-t border-slate-800">
+            <button onclick="toggleMobileMenu(); openBookingModal();" class="w-full bg-gradient-to-r from-brand-orange to-brand-green text-white font-bold py-3.5 rounded-xl shadow-lg text-center uppercase tracking-wider text-sm">
+                Demander un devis gratuit
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <main class="flex-grow pt-16">
+
+        <!-- HERO BANNER SECTION (NETFLIX STYLE STREAM FEATURED) -->
+        <section id="hero" class="relative w-full min-h-[85vh] lg:min-h-[90vh] flex items-center justify-start overflow-hidden">
+            <!-- Background Video Simulation / Poster -->
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?auto=format&fit=crop&w=1920&q=80" alt="Vision 24 Studio" class="w-full h-full object-cover object-center transform scale-105 filter brightness-75">
+                <div class="hero-overlay absolute inset-0"></div>
+            </div>
+
+            <!-- Hero Banner Content -->
+            <div class="relative z-10 px-6 lg:px-16 max-w-4xl pt-12">
+                <!-- Live Tag -->
+                <div class="inline-flex items-center space-x-2 bg-black/70 border border-brand-orange/40 rounded-full px-3.5 py-1.5 mb-6 backdrop-blur-md">
+                    <span class="flex h-2.5 w-2.5 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-600"></span>
+                    </span>
+                    <span class="text-xs font-black tracking-wider text-red-500 uppercase">EN DIRECT DE DOSSO</span>
+                    <span class="text-gray-500 text-xs">|</span>
+                    <span class="text-xs font-medium text-gray-200"><i class="fa-solid fa-users text-brand-orange mr-1"></i> 14.8K Téléspectateurs</span>
+                </div>
+
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight leading-none mb-4 text-white">
+                    RADIO TÉLÉVISION <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange via-white to-brand-green">VISION 24 NIGER</span>
+                </h1>
+
+                <!-- Slogan & Intro -->
+                <p class="text-base sm:text-xl text-gray-200 font-light mb-2 max-w-2xl leading-relaxed">
+                    <span class="text-brand-orange font-bold">"Une Vision pour le Développement, tout voir et tout savoir!"</span>
+                </p>
+                <p class="text-xs sm:text-sm text-gray-300 font-normal mb-8 max-w-2xl italic leading-relaxed">
+                    La voix du peuple, l'image de la nation. Votre média numérique de référence à Dosso et dans tout le Niger pour la publicité, l'événementiel et le streaming.
+                </p>
+
+                <!-- Hero Action Buttons -->
+                <div class="flex flex-wrap items-center gap-4">
+                    <button onclick="playMainLiveTV()" class="flex items-center space-x-3 bg-brand-orange hover:bg-orange-600 text-white font-bold px-7 py-3.5 rounded-xl shadow-xl shadow-brand-orange/30 transition-all hover:scale-105 active:scale-95 text-xs sm:text-sm uppercase tracking-wider">
+                        <i class="fa-solid fa-play text-lg"></i>
+                        <span>Regarder le Direct TV</span>
+                    </button>
+                    
+                    <button onclick="toggleAudioRadio()" class="flex items-center space-x-3 bg-slate-900/90 hover:bg-slate-800 border border-brand-green text-white font-bold px-6 py-3.5 rounded-xl backdrop-blur-md transition-all hover:scale-105 active:scale-95 text-xs sm:text-sm uppercase tracking-wider">
+                        <i class="fa-solid fa-radio text-brand-green text-lg"></i>
+                        <span>Écouter 95.1 FM</span>
+                    </button>
+
+                    <button onclick="openBookingModal()" class="flex items-center space-x-2 bg-white/10 hover:bg-white/20 text-white font-medium px-5 py-3.5 rounded-xl border border-white/20 backdrop-blur-md transition-all text-xs sm:text-sm">
+                        <i class="fa-solid fa-calculator text-brand-orange"></i>
+                        <span>Calculer un devis</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- LIVE STREAM PLAYER & LIVE CHAT MODAL / SECTION -->
+        <section id="live-tv" class="py-10 px-4 lg:px-12 max-w-7xl mx-auto">
+            <div class="flex flex-col lg:flex-row gap-6">
+                <!-- Video Player Container -->
+                <div class="lg:w-2/3 bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl relative">
+                    <!-- Stream Header Bar -->
+                    <div class="bg-slate-900 px-4 py-3 flex items-center justify-between border-b border-slate-800">
+                        <div class="flex items-center space-x-3">
+                            <span class="bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-widest animate-pulse">LIVE TV</span>
+                            <h3 class="font-bold text-xs sm:text-sm text-gray-200">VISION 24 HD - Grand Journal & Info Dosso</h3>
+                        </div>
+                        <div class="flex items-center space-x-3 text-xs text-gray-400">
+                            <span class="hidden sm:inline"><i class="fa-solid fa-signal text-brand-green mr-1"></i> Full HD 1080p</span>
+                            <button onclick="toggleFullscreen()" class="hover:text-white p-1" title="Plein écran"><i class="fa-solid fa-expand"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Video Container / Screen Simulation -->
+                    <div id="videoContainer" class="relative aspect-video bg-black flex items-center justify-center group overflow-hidden">
+                        <!-- Video Placeholder Poster -->
+                        <img id="tvPoster" src="https://images.unsplash.com/photo-1526470608268-f674ce90ebd4?auto=format&fit=crop&w=1200&q=80" class="w-full h-full object-cover transition-all duration-700">
+                        
+                        <!-- Watermark Logo -->
+                        <div class="absolute top-4 right-4 opacity-80 pointer-events-none flex items-center space-x-1 bg-black/60 px-2.5 py-1 rounded-lg backdrop-blur-md">
+                            <span class="text-brand-orange font-black text-xs">VISION</span>
+                            <span class="text-brand-green font-black text-xs">24 TV</span>
+                        </div>
+
+                        <!-- Live Broadcast Overlay Canvas / Simulation -->
+                        <div id="liveOverlay" class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center transition-all">
+                            <button onclick="startTVStream()" class="w-20 h-20 bg-brand-orange hover:bg-orange-600 text-white rounded-full flex items-center justify-center text-2xl shadow-2xl transition-transform transform hover:scale-110 active:scale-95">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </button>
+                            <p class="mt-4 font-semibold text-xs sm:text-sm text-white drop-shadow">Cliquer pour lancer la diffusion Télé-Vision24</p>
+                        </div>
+
+                        <!-- Lower Third Banner Simulation when playing -->
+                        <div id="lowerThird" class="hidden absolute bottom-6 left-6 right-6 bg-slate-900/95 border-l-4 border-brand-orange p-3 rounded-r-lg backdrop-blur-md shadow-2xl">
+                            <span class="text-[10px] font-extrabold text-brand-orange uppercase tracking-wider block">Émission Spéciale en Direct</span>
+                            <p class="text-xs sm:text-sm font-bold text-white">Développement Régional à Dosso : Bilan et Perspectives 2026</p>
+                        </div>
+                    </div>
+
+                    <!-- TV Controls & Reactions Bar -->
+                    <div class="p-4 bg-slate-900/90 flex flex-wrap items-center justify-between gap-4">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-xs text-gray-400 font-medium hidden sm:inline">Réagir :</span>
+                            <button onclick="sendReaction('❤️')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-full transition active:scale-90">❤️ <span id="likeCount">342</span></button>
+                            <button onclick="sendReaction('👏')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-full transition active:scale-90">👏 <span id="clapCount">189</span></button>
+                            <button onclick="sendReaction('🔥')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-full transition active:scale-90">🔥 <span id="fireCount">512</span></button>
+                        </div>
+                        <div class="text-xs text-gray-400 flex items-center space-x-3">
+                            <span>Partager le stream :</span>
+                            <a href="https://api.whatsapp.com/send?text=Regardez%20Radio-Télé%20Vision%2024%20en%20Direct!" target="_blank" class="text-brand-green hover:text-white transition"><i class="fa-brands fa-whatsapp text-base"></i></a>
+                            <a href="#" class="text-blue-500 hover:text-white transition"><i class="fa-brands fa-facebook text-base"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Live Chat Drawer -->
+                <div class="lg:w-1/3 bg-slate-900/90 border border-slate-800 rounded-2xl flex flex-col h-[460px] lg:h-auto shadow-xl">
+                    <div class="p-4 border-b border-slate-800 flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-comments text-brand-orange"></i>
+                            <h3 class="font-bold text-xs sm:text-sm text-white">Chat & Discussion en Direct</h3>
+                        </div>
+                        <span class="text-[9px] bg-brand-green/20 text-brand-green border border-brand-green/30 px-2 py-0.5 rounded-full font-semibold">En Ligne</span>
+                    </div>
+
+                    <!-- Chat Messages Area -->
+                    <div id="chatBox" class="flex-grow p-4 overflow-y-auto space-y-3 text-xs">
+                        <div class="bg-slate-800/60 p-2.5 rounded-xl border border-slate-700/40">
+                            <span class="font-bold text-brand-orange">Moustapha (Dosso) :</span>
+                            <p class="text-gray-300 mt-0.5">Excellente qualité d'image ! Bravo à toute l'équipe de Vision 24 !</p>
+                        </div>
+                        <div class="bg-slate-800/60 p-2.5 rounded-xl border border-slate-700/40">
+                            <span class="font-bold text-brand-green">Aïchatou (Niamey) :</span>
+                            <p class="text-gray-300 mt-0.5">Merci pour ce reportage sur le développement de la région de Dosso.</p>
+                        </div>
+                        <div class="bg-slate-800/60 p-2.5 rounded-xl border border-slate-700/40">
+                            <span class="font-bold text-yellow-500">Ibrahim K. :</span>
+                            <p class="text-gray-300 mt-0.5">À quelle heure commence le Tafsir Ramadan de ce soir ?</p>
+                        </div>
+                    </div>
+
+                    <!-- Chat Input -->
+                    <form onsubmit="sendMessage(event)" class="p-3 border-t border-slate-800 flex items-center gap-2">
+                        <input type="text" id="chatInput" placeholder="Réagir au direct..." class="flex-grow bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-orange">
+                        <button type="submit" class="bg-brand-orange hover:bg-orange-600 text-white text-xs p-2.5 rounded-xl transition">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- STICKY / EMBEDDED RADIO PLAYER BAR (95.1 MHz) -->
+        <section id="radio-section" class="py-6 px-4 lg:px-12">
+            <div class="max-w-7xl mx-auto bg-gradient-to-r from-slate-900 via-brand-black to-slate-900 border border-brand-green/40 rounded-2xl p-4 lg:p-6 shadow-2xl relative overflow-hidden">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+                    
+                    <!-- Radio Info -->
+                    <div class="flex items-center space-x-4 w-full md:w-auto">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-green to-emerald-900 flex items-center justify-center shadow-lg flex-shrink-0 relative">
+                            <i class="fa-solid fa-radio text-2xl text-white"></i>
+                            <span class="absolute -bottom-1 bg-brand-orange text-[9px] font-black px-1.5 rounded text-white uppercase">95.1 FM</span>
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-2">
+                                <span class="text-xs font-black text-brand-green uppercase tracking-wider">RADIO VISION 24 DOSSO</span>
+                                <span class="text-gray-500">•</span>
+                                <span class="text-xs text-gray-400">95.1 MHz</span>
+                            </div>
+                            <h4 id="radioTrackTitle" class="font-bold text-sm sm:text-base text-white">En direct: Le Journal Parlé en Hausa & Zarma</h4>
+                            <p class="text-xs text-gray-400">La Voix du Peuple • Émission d'information locale & développement</p>
+                        </div>
+                    </div>
+
+                    <!-- Audio Visualizer Animated Bars -->
+                    <div id="equalizer" class="hidden sm:flex items-center space-x-1.5 h-8 px-4 paused">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+
+                    <!-- Radio Player Controls -->
+                    <div class="flex items-center space-x-4 w-full md:w-auto justify-end">
+                        <button onclick="toggleAudioRadio()" id="radioPlayBtn" class="w-12 h-12 bg-brand-green hover:bg-emerald-600 text-white rounded-full flex items-center justify-center text-lg shadow-lg shadow-brand-green/30 transition-transform active:scale-90">
+                            <i class="fa-solid fa-play ml-0.5"></i>
+                        </button>
+                        <div class="flex items-center space-x-2 bg-slate-800/80 px-3 py-2 rounded-xl border border-slate-700">
+                            <i class="fa-solid fa-volume-high text-xs text-gray-400"></i>
+                            <input type="range" id="volumeSlider" min="0" max="100" value="80" class="w-20 accent-brand-green cursor-pointer">
+                        </div>
+                        <span class="bg-red-950 border border-red-800 text-red-400 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider animate-pulse">
+                            <i class="fa-solid fa-circle text-[8px] mr-1"></i> DIRECT FM
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CAROUSEL 1: À LA UNE - ACTU DOSSO & TV -->
+        <section class="py-6 px-4 lg:px-12">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+                    <span class="w-1.5 h-6 bg-brand-orange rounded-full"></span>
+                    🔴 À la Une : Actualités & Éditions Spéciales
+                </h2>
+                <div class="flex space-x-2">
+                    <button onclick="scrollCarousel('c1', -300)" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button onclick="scrollCarousel('c1', 300)" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <div id="c1" class="flex space-x-4 overflow-x-auto no-scrollbar scroll-smooth py-2">
+                <!-- Card 1 -->
+                <div onclick="openVideoModal('JT Soir Dosso - Édition Spéciale', 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80', 'Le récapitulatif complet de l\'actualité régionale et nationale préparé par l\'équipe de rédaction de Vision 24 à Dosso.')" class="flex-none w-64 sm:w-72 glass-card rounded-xl overflow-hidden group cursor-pointer hover:border-brand-orange transition-all duration-300 hover:scale-105">
+                    <div class="relative aspect-video">
+                        <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+                        <span class="absolute top-2 left-2 bg-brand-orange text-white text-[10px] font-black px-2 py-0.5 rounded uppercase">JT 20H</span>
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/10 flex items-center justify-center transition">
+                            <i class="fa-solid fa-circle-play text-4xl text-white opacity-80 group-hover:opacity-100 group-hover:scale-110 transition"></i>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h4 class="font-bold text-xs sm:text-sm text-white truncate">Édition Spéciale : Information Dosso</h4>
+                        <p class="text-[11px] text-gray-400 mt-1">Durée : 45 min • Rédaction Vision 24</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div onclick="openVideoModal('Forum Régional pour le Développement', 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80', 'Couverture intégrale en Live Streaming du Forum sur l\'entrepreneuriat des jeunes à Dosso.')" class="flex-none w-64 sm:w-72 glass-card rounded-xl overflow-hidden group cursor-pointer hover:border-brand-orange transition-all duration-300 hover:scale-105">
+                    <div class="relative aspect-video">
+                        <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+                        <span class="absolute top-2 left-2 bg-brand-green text-white text-[10px] font-black px-2 py-0.5 rounded uppercase">COUVERTURE LIVE</span>
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/10 flex items-center justify-center transition">
+                            <i class="fa-solid fa-circle-play text-4xl text-white opacity-80 group-hover:opacity-100 group-hover:scale-110 transition"></i>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h4 class="font-bold text-xs sm:text-sm text-white truncate">Forum Régional du Développement</h4>
+                        <p class="text-[11px] text-gray-400 mt-1">Atelier & Conférence • Replay HD</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div onclick="openVideoModal('Magazine Économique : Les Marchés de Dosso', 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80', 'Immersion au cœur des échanges commerciaux et du dynamisme économique de la région.')" class="flex-none w-64 sm:w-72 glass-card rounded-xl overflow-hidden group cursor-pointer hover:border-brand-orange transition-all duration-300 hover:scale-105">
+                    <div class="relative aspect-video">
+                        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+                        <span class="absolute top-2 left-2 bg-purple-600 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase">MAGAZINE</span>
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/10 flex items-center justify-center transition">
+                            <i class="fa-solid fa-circle-play text-4xl text-white opacity-80 group-hover:opacity-100 group-hover:scale-110 transition"></i>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h4 class="font-bold text-xs sm:text-sm text-white truncate">Économie Locale & Opportunités</h4>
+                        <p class="text-[11px] text-gray-400 mt-1">Reportage exclusif Vision 24</p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div onclick="openVideoModal('Point de Presse : Déclaration Officielle', 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80', 'Captation audio et vidéo complète du point de presse tenu à Dosso.')" class="flex-none w-64 sm:w-72 glass-card rounded-xl overflow-hidden group cursor-pointer hover:border-brand-orange transition-all duration-300 hover:scale-105">
+                    <div class="relative aspect-video">
+                        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+                        <span class="absolute top-2 left-2 bg-red-700 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase">PRESSE</span>
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/10 flex items-center justify-center transition">
+                            <i class="fa-solid fa-circle-play text-4xl text-white opacity-80 group-hover:opacity-100 group-hover:scale-110 transition"></i>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h4 class="font-bold text-xs sm:text-sm text-white truncate">Point de Presse & Déclaration</h4>
+                        <p class="text-[11px] text-gray-400 mt-1">Couverture média intégrale</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CAROUSEL 2: TAFSIR RAMADAN & ÉMISSIONS ISLAMIQUES -->
+        <section class="py-6 px-4 lg:px-12" id="catalog">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+                    <span class="w-1.5 h-6 bg-brand-green rounded-full"></span>
+                    🌙 Tafsir RAMADAN & Émissions Religieuses
+                </h2>
+                <div class="flex space-x-2">
+                    <button onclick="scrollCarousel('c2', -300)" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button onclick="scrollCarousel('c2', 300)" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <div id="c2" class="flex space-x-4 overflow-x-auto no-scrollbar scroll-smooth py-2">
+                <!-- Card Ramadan 1 -->
+                <div onclick="openVideoModal('Tafsir RAMADAN - Épisode Quotidien', 'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80', 'Exégèse du Saint Coran animée par nos oulémas et prédicateurs durant le mois béni de Ramadan.')" class="flex-none w-64 sm:w-72 glass-card rounded-xl overflow-hidden group cursor-pointer hover:border-brand-green transition-all duration-300 hover:scale-105">
+                    <div class="relative aspect-video">
+                        <img src="https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+                        <span class="absolute top-2 left-2 bg-emerald-700 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase">RAMADAN</span>
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/10 flex items-center justify-center transition">
+                            <i class="fa-solid fa-circle-play text-4xl text-white opacity-80 group-hover:opacity-100 group-hover:scale-110 transition"></i>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h4 class="font-bold text-xs sm:text-sm text-white truncate">Tafsir Coran - Leçons & Enseignements</h4>
+                        <p class="text-[11px] text-gray-400 mt-1">Émission quotidienne Vision 24</p>
+                    </div>
+                </div>
+
+                <!-- Card Ramadan 2 -->
+                <div onclick="openVideoModal('Causerie Religieuse & Valeurs Sociales', 'https://images.unsplash.com/photo-1542816417-0983cbe33577?auto=format&fit=crop&w=800&q=80', 'Débats et conseils pratiques pour la cohésion sociale, la solidarité et la paix.')" class="flex-none w-64 sm:w-72 glass-card rounded-xl overflow-hidden group cursor-pointer hover:border-brand-green transition-all duration-300 hover:scale-105">
+                    <div class="relative aspect-video">
+                        <img src="https://images.unsplash.com/photo-1542816417-0983cbe33577?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+                        <span class="absolute top-2 left-2 bg-emerald-700 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase">ÉMISSION</span>
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/10 flex items-center justify-center transition">
+                            <i class="fa-solid fa-circle-play text-4xl text-white opacity-80 group-hover:opacity-100 group-hover:scale-110 transition"></i>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h4 class="font-bold text-xs sm:text-sm text-white truncate">Foi, Jeunesse et Développement</h4>
+                        <p class="text-[11px] text-gray-400 mt-1">Spécial Ramadan Vision 24</p>
+                    </div>
+                </div>
+
+                <!-- Card Ramadan 3 -->
+                <div onclick="openVideoModal('Invocations et Recueillement', 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80', 'Programmes de spiritualité et de prières guidées.')" class="flex-none w-64 sm:w-72 glass-card rounded-xl overflow-hidden group cursor-pointer hover:border-brand-green transition-all duration-300 hover:scale-105">
+                    <div class="relative aspect-video">
+                        <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+                        <span class="absolute top-2 left-2 bg-emerald-700 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase">SPIRITUALITÉ</span>
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/10 flex items-center justify-center transition">
+                            <i class="fa-solid fa-circle-play text-4xl text-white opacity-80 group-hover:opacity-100 group-hover:scale-110 transition"></i>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h4 class="font-bold text-xs sm:text-sm text-white truncate">Soirée de Recueillement à Dosso</h4>
+                        <p class="text-[11px] text-gray-400 mt-1">Diffusion Radio & TV</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE SERVICES & AUTOMATIC ESTIMATE CALCULATOR -->
+        <section id="services" class="py-12 px-4 lg:px-12 bg-slate-950 border-t border-b border-slate-800 my-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="text-brand-orange font-black text-xs tracking-widest uppercase bg-brand-orange/10 px-3.5 py-1.5 rounded-full border border-brand-orange/20">AGENCE DE COMMUNICATION</span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-white mt-3 uppercase">Nos Prestations & Devis Instantané</h2>
+                    <p class="text-gray-400 text-xs sm:text-sm mt-2">Vision 24 est votre partenaire privilégié au Niger pour faire briller vos projets, événements et marques.</p>
+                </div>
+
+                <!-- Grid of Services -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                    
+                    <!-- Service 1: Publicité & Spot Pub -->
+                    <div class="glass-card p-6 rounded-2xl border border-slate-800 hover:border-brand-orange transition-all group">
+                        <div class="w-12 h-12 rounded-xl bg-brand-orange/20 text-brand-orange flex items-center justify-center text-xl mb-4 group-hover:bg-brand-orange group-hover:text-white transition">
+                            <i class="fa-solid fa-rectangle-ad"></i>
+                        </div>
+                        <h3 class="font-bold text-base text-white mb-2">Publicité & Spot Pub (TV/Radio)</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">
+                            Conception, voix-off professionnelle et diffusion de vos spots publicitaires sur Radio 95.1 FM et Télévision.
+                        </p>
+                        <button onclick="openBookingModal('spot')" class="text-xs font-bold text-brand-orange hover:underline flex items-center gap-1">
+                            Calculer le tarif <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+
+                    <!-- Service 2: Couverture Live Streaming -->
+                    <div class="glass-card p-6 rounded-2xl border border-slate-800 hover:border-brand-green transition-all group">
+                        <div class="w-12 h-12 rounded-xl bg-brand-green/20 text-brand-green flex items-center justify-center text-xl mb-4 group-hover:bg-brand-green group-hover:text-white transition">
+                            <i class="fa-solid fa-video"></i>
+                        </div>
+                        <h3 class="font-bold text-base text-white mb-2">Couverture en Live Streaming</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">
+                            Reconstitution en direct HD de vos ateliers, conférences, points de presse et cérémonies avec régie mobile.
+                        </p>
+                        <button onclick="openBookingModal('live')" class="text-xs font-bold text-brand-green hover:underline flex items-center gap-1">
+                            Réserver une régie <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+
+                    <!-- Service 3: Community Management -->
+                    <div class="glass-card p-6 rounded-2xl border border-slate-800 hover:border-blue-500 transition-all group">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl mb-4 group-hover:bg-blue-500 group-hover:text-white transition">
+                            <i class="fa-solid fa-hashtag"></i>
+                        </div>
+                        <h3 class="font-bold text-base text-white mb-2">Community Manager & Digital</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">
+                            Gestion stratégique de vos pages sociales, campagnes sponsorisées et visuels pour maximiser votre impact au Niger.
+                        </p>
+                        <button onclick="openBookingModal('community')" class="text-xs font-bold text-blue-400 hover:underline flex items-center gap-1">
+                            Booster ma visibilité <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+
+                    <!-- Service 4: Audiovisuel & Montage -->
+                    <div class="glass-card p-6 rounded-2xl border border-slate-800 hover:border-purple-500 transition-all group">
+                        <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl mb-4 group-hover:bg-purple-500 group-hover:text-white transition">
+                            <i class="fa-solid fa-film"></i>
+                        </div>
+                        <h3 class="font-bold text-base text-white mb-2">Production Audiovisuelle</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">
+                            Réalisation de films institutionnels, documentaires, shootings photo et montages vidéo Haute Définition.
+                        </p>
+                        <button onclick="openBookingModal('audiovisuel')" class="text-xs font-bold text-purple-400 hover:underline flex items-center gap-1">
+                            Commanditer une vidéo <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+
+                    <!-- Service 5: Formations Vision 24 -->
+                    <div class="glass-card p-6 rounded-2xl border border-slate-800 hover:border-yellow-500 transition-all group">
+                        <div class="w-12 h-12 rounded-xl bg-yellow-500/20 text-yellow-500 flex items-center justify-center text-xl mb-4 group-hover:bg-yellow-500 group-hover:text-white transition">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="font-bold text-base text-white mb-2">Formations Média & Journalisme</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">
+                            Ateliers pratiques en cadrage, montage vidéo, journalisme numérique et prise de parole en public à Dosso.
+                        </p>
+                        <button onclick="openBookingModal('formation')" class="text-xs font-bold text-yellow-500 hover:underline flex items-center gap-1">
+                            S'inscrire à la session <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+
+                    <!-- Service 6: Couverture Événementielle -->
+                    <div class="glass-card p-6 rounded-2xl border border-slate-800 hover:border-pink-500 transition-all group">
+                        <div class="w-12 h-12 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center text-xl mb-4 group-hover:bg-pink-500 group-hover:text-white transition">
+                            <i class="fa-solid fa-microphone-lines"></i>
+                        </div>
+                        <h3 class="font-bold text-base text-white mb-2">Événementiel & Cérémonies</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">
+                            Animation, sonorisation, reportage photo/vidéo complet pour mariages, séminaires et événements d'entreprise.
+                        </p>
+                        <button onclick="openBookingModal('evenement')" class="text-xs font-bold text-pink-400 hover:underline flex items-center gap-1">
+                            Demander une équipe <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER & CONTACT INFO -->
+        <footer id="contact" class="bg-brand-black pt-12 pb-8 px-4 lg:px-12 border-t border-slate-800">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                
+                <!-- Col 1: About & Slogan -->
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 bg-brand-orange rounded-xl flex items-center justify-center font-black text-white text-lg">V24</div>
+                        <span class="font-black text-lg text-white uppercase">VISION <span class="text-brand-orange">24</span></span>
+                    </div>
+                    <p class="text-xs text-gray-400 leading-relaxed mb-4">
+                        "Une Vision pour le Développement, tout voir et tout savoir!" <br>
+                        Agence Média, Radio (95.1 MHz) et Télévision Numérique à Dosso, République du Niger.
+                    </p>
+                    <span class="text-xs text-brand-green font-bold block"><i class="fa-solid fa-location-dot mr-1.5"></i> Siège Officiel : Dosso, Niger</span>
+                </div>
+
+                <!-- Col 2: Direct Contacts -->
+                <div>
+                    <h4 class="font-bold text-xs text-white uppercase tracking-wider mb-4 border-b border-slate-800 pb-2">Contacts Directs</h4>
+                    <ul class="space-y-3 text-xs text-gray-300">
+                        <li class="flex items-center space-x-3">
+                            <i class="fa-solid fa-phone text-brand-orange"></i>
+                            <span>+227 90 62 33 24 / 91 97 00 06</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fa-solid fa-envelope text-brand-orange"></i>
+                            <span class="truncate">radiovision24niger@gmail.com</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fa-solid fa-globe text-brand-orange"></i>
+                            <span class="truncate">https://vision.website.co.in.media</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fa-solid fa-tower-broadcast text-brand-green"></i>
+                            <span>Radio FM 95.1 MHz (Dosso)</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Quick Links -->
+                <div>
+                    <h4 class="font-bold text-xs text-white uppercase tracking-wider mb-4 border-b border-slate-800 pb-2">Navigation Rapide</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a href="#live-tv" class="hover:text-brand-orange transition">Télévision Direct TV</a></li>
+                        <li><a href="#radio-section" class="hover:text-brand-orange transition">Radio FM 95.1 Direct</a></li>
+                        <li><a href="#services" class="hover:text-brand-orange transition">Tarifs Publicité & Spots</a></li>
+                        <li><a href="#services" class="hover:text-brand-orange transition">Formations Audiovisuelles</a></li>
+                        <li><a href="#catalog" class="hover:text-brand-orange transition">Replay Tafsir RAMADAN</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Social Networks -->
+                <div>
+                    <h4 class="font-bold text-xs text-white uppercase tracking-wider mb-4 border-b border-slate-800 pb-2">Réseaux Sociaux Officiels</h4>
+                    <p class="text-xs text-gray-400 mb-4">Rejoignez la communauté Vision 24 sur l'ensemble de nos canaux :</p>
+                    <div class="flex flex-wrap gap-2.5">
+                        <a href="https://facebook.com" target="_blank" class="w-9 h-9 rounded-full bg-blue-600 hover:opacity-80 text-white flex items-center justify-center text-sm transition" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://instagram.com" target="_blank" class="w-9 h-9 rounded-full bg-pink-600 hover:opacity-80 text-white flex items-center justify-center text-sm transition" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://youtube.com" target="_blank" class="w-9 h-9 rounded-full bg-red-600 hover:opacity-80 text-white flex items-center justify-center text-sm transition" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="https://wa.me/22790623324" target="_blank" class="w-9 h-9 rounded-full bg-green-500 hover:opacity-80 text-white flex items-center justify-center text-sm transition" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="https://twitter.com" target="_blank" class="w-9 h-9 rounded-full bg-sky-500 hover:opacity-80 text-white flex items-center justify-center text-sm transition" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="https://telegram.org" target="_blank" class="w-9 h-9 rounded-full bg-blue-500 hover:opacity-80 text-white flex items-center justify-center text-sm transition" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto pt-6 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
+                <p>© 2026 Radio Télévision Vision 24 Niger. Tous droits réservés.</p>
+                <div class="flex items-center space-x-4">
+                    <span>La voix du peuple, l'image de la nation</span>
+                    <span>•</span>
+                    <span class="text-brand-orange">Dosso, Niger</span>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- INTERACTIVE BOOKING & DEVIS MODAL -->
+    <div id="bookingModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 w-full max-w-lg rounded-2xl p-6 relative shadow-2xl overflow-y-auto max-h-[90vh]">
+            <!-- Close Button -->
+            <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-2 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex items-center space-x-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-brand-orange text-white flex items-center justify-center font-bold">V24</div>
+                <div>
+                    <h3 class="font-black text-base text-white uppercase">Demande de Service & Devis Instantané</h3>
+                    <p class="text-xs text-gray-400">Agence Média Vision 24 Niger (Dosso)</p>
+                </div>
+            </div>
+
+            <form onsubmit="handleBookingSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 mb-1">Votre Nom / Organisme *</label>
+                    <input type="text" id="clientName" required placeholder="Ex: Entreprise SAMA / M. Ibrahim" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:border-brand-orange focus:outline-none">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-300 mb-1">Téléphone / WhatsApp *</label>
+                        <input type="tel" id="clientPhone" required placeholder="+227 90 00 00 00" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:border-brand-orange focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-300 mb-1">Service Souhaité</label>
+                        <select id="serviceSelect" onchange="calculateEstimate()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:border-brand-orange focus:outline-none">
+                            <option value="spot">Spot Publicitaire (TV / Radio)</option>
+                            <option value="live">Couverture Live Streaming</option>
+                            <option value="evenement">Couverture d'Atelier / Conférence</option>
+                            <option value="community">Community Management Digital</option>
+                            <option value="audiovisuel">Production Audiovisuelle</option>
+                            <option value="formation">Formation Vision 24</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 mb-1">Détails de la demande / Lieu (Dosso, Niamey...)</label>
+                    <textarea id="clientDetails" rows="3" placeholder="Précisez la date, le lieu ou les besoins spécifiques..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:border-brand-orange focus:outline-none"></textarea>
+                </div>
+
+                <!-- Instant Estimate Calculator Box -->
+                <div class="p-4 bg-slate-950 border border-brand-orange/30 rounded-xl flex items-center justify-between">
+                    <div>
+                        <span class="text-[10px] text-gray-400 uppercase tracking-wider block">Estimation Tarifaire :</span>
+                        <span id="estimatedPrice" class="font-extrabold text-brand-orange text-base sm:text-lg">50 000 FCFA</span>
+                    </div>
+                    <span class="text-[10px] text-brand-green bg-brand-green/10 border border-brand-green/30 px-2 py-1 rounded">Devis Indicatif</span>
+                </div>
+
+                <!-- Action buttons -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                    <button type="button" onclick="sendViaWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl shadow-lg transition uppercase tracking-wider text-xs flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-base"></i> Envoyer sur WhatsApp
+                    </button>
+                    <button type="submit" class="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-3 rounded-xl shadow-lg transition uppercase tracking-wider text-xs flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Envoyer par Email
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- VIDEO REPLAY MODAL -->
+    <div id="videoModal" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 w-full max-w-3xl rounded-2xl overflow-hidden relative shadow-2xl">
+            <button onclick="closeVideoModal()" class="absolute top-3 right-3 text-white bg-black/70 rounded-full w-8 h-8 flex items-center justify-center z-10 hover:bg-brand-orange transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="aspect-video bg-black relative">
+                <img id="modalImg" src="" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <button onclick="alert('Lancement de la lecture HD...')" class="w-16 h-16 bg-brand-orange text-white rounded-full flex items-center justify-center text-2xl shadow-xl hover:scale-110 transition">
+                        <i class="fa-solid fa-play ml-1"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6">
+                <h3 id="modalTitle" class="font-bold text-lg text-white mb-2"></h3>
+                <p id="modalDesc" class="text-xs text-gray-300 leading-relaxed"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Global States
+        let isRadioPlaying = false;
+        let isTVPlaying = false;
+        let likes = 342, claps = 189, fires = 512;
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        }
+
+        // Horizontal Scroll for Carousels
+        function scrollCarousel(id, amount) {
+            const container = document.getElementById(id);
+            container.scrollBy({ left: amount, behavior: 'smooth' });
+        }
+
+        // Live TV Stream Control Simulation
+        function startTVStream() {
+            const overlay = document.getElementById('liveOverlay');
+            const lowerThird = document.getElementById('lowerThird');
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+            lowerThird.classList.remove('hidden');
+            isTVPlaying = true;
+        }
+
+        function playMainLiveTV() {
+            document.getElementById('live-tv').scrollIntoView({ behavior: 'smooth' });
+            startTVStream();
+        }
+
+        // Radio Player Controls (95.1 FM)
+        function toggleAudioRadio() {
+            const playBtn = document.getElementById('radioPlayBtn');
+            const equalizer = document.getElementById('equalizer');
+            const trackTitle = document.getElementById('radioTrackTitle');
+
+            if (!isRadioPlaying) {
+                isRadioPlaying = true;
+                playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                playBtn.classList.replace('bg-brand-green', 'bg-brand-orange');
+                equalizer.classList.remove('paused', 'hidden');
+                trackTitle.innerText = "EN DIRECT : Radio Vision 24 FM 95.1 MHz - Émission Spéciale";
+            } else {
+                isRadioPlaying = false;
+                playBtn.innerHTML = '<i class="fa-solid fa-play ml-0.5"></i>';
+                playBtn.classList.replace('bg-brand-orange', 'bg-brand-green');
+                equalizer.classList.add('paused');
+                trackTitle.innerText = "Radio Vision 24 FM 95.1 MHz (En Pause)";
+            }
+        }
+
+        // Live Reactions Counter
+        function sendReaction(type) {
+            if (type === '❤️') {
+                likes++;
+                document.getElementById('likeCount').innerText = likes;
+            } else if (type === '👏') {
+                claps++;
+                document.getElementById('clapCount').innerText = claps;
+            } else if (type === '🔥') {
+                fires++;
+                document.getElementById('fireCount').innerText = fires;
+            }
+        }
+
+        // Interactive Live Chat Box
+        function sendMessage(e) {
+            e.preventDefault();
+            const input = document.getElementById('chatInput');
+            const chatBox = document.getElementById('chatBox');
+
+            if (input.value.trim() !== "") {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = "bg-brand-orange/20 border border-brand-orange/40 p-2.5 rounded-xl";
+                msgDiv.innerHTML = `<span class="font-bold text-white">Vous :</span> <p class="text-gray-200 mt-0.5">${escapeHtml(input.value)}</p>`;
+                chatBox.appendChild(msgDiv);
+                chatBox.scrollTop = chatBox.scrollHeight;
+                input.value = "";
+            }
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        // Booking & Service Estimate Modal
+        function openBookingModal(serviceKey = 'spot') {
+            document.getElementById('bookingModal').classList.remove('hidden');
+            const select = document.getElementById('serviceSelect');
+            if (serviceKey && select) {
+                select.value = serviceKey;
+            }
+            calculateEstimate();
+        }
+
+        function closeBookingModal() {
+            document.getElementById('bookingModal').classList.add('hidden');
+        }
+
+        function calculateEstimate() {
+            const select = document.getElementById('serviceSelect').value;
+            const priceEl = document.getElementById('estimatedPrice');
+
+            const prices = {
+                'spot': '35 000 - 75 000 FCFA',
+                'live': '150 000 - 300 000 FCFA',
+                'evenement': '100 000 - 250 000 FCFA',
+                'community': '80 000 FCFA / mois',
+                'audiovisuel': '120 000 FCFA',
+                'formation': '25 000 FCFA / session'
+            };
+
+            priceEl.innerText = prices[select] || 'Sur devis';
+        }
+
+        function sendViaWhatsApp() {
+            const name = document.getElementById('clientName').value || 'Client';
+            const phone = document.getElementById('clientPhone').value || 'Non précisé';
+            const service = document.getElementById('serviceSelect').options[document.getElementById('serviceSelect').selectedIndex].text;
+            const details = document.getElementById('clientDetails').value || 'Aucun détail supplémentaire';
+
+            const text = `Bonjour Vision 24 Niger,%0A%0AJe souhaite demander un devis pour : *${service}*.%0A- Nom : ${name}%0A- Téléphone : ${phone}%0A- Détails : ${details}`;
+            window.open(`https://wa.me/22790623324?text=${text}`, '_blank');
+        }
+
+        function handleBookingSubmit(e) {
+            e.preventDefault();
+            alert("Merci ! Votre demande a été enregistrée. Notre équipe de Télé-Vision 24 à Dosso vous recontactera sous peu.");
+            closeBookingModal();
+        }
+
+        // Replay Video Modal Handler
+        function openVideoModal(title, imgUrl, desc) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalImg').src = imgUrl;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('videoModal').classList.remove('hidden');
+        }
+
+        function closeVideoModal() {
+            document.getElementById('videoModal').classList.add('hidden');
+        }
+
+        // Fullscreen Toggle
+        function toggleFullscreen() {
+            const elem = document.getElementById('videoContainer');
+            if (!document.fullscreenElement) {
+                elem.requestFullscreen().catch(err => {});
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function handleSearch() {
+            // Placeholder real-time filter handler
+        }
+    </script>
+</body>
+</html>
