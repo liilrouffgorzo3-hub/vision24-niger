@@ -1,0 +1,30 @@
+[build]
+  publish = "."
+
+[functions]
+  directory = "netlify/functions"
+
+[[redirects]]
+  from = "/api/status"
+  to = "/.netlify/functions/status"
+  status = 200
+
+[[redirects]]
+  from = "/api/facebook-publish"
+  to = "/.netlify/functions/facebook-publish"
+  status = 200
+
+[[redirects]]
+  from = "/api/youtube-upload"
+  to = "/.netlify/functions/youtube-upload"
+  status = 200
+
+[[redirects]]
+  from = "/api/whatsapp-send"
+  to = "/.netlify/functions/whatsapp-send"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
