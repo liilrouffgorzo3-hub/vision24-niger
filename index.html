@@ -1135,6 +1135,15 @@
  document.getElementById('v24AdminOpen').addEventListener('click',()=>{if(init())verify();});
 })();
 </script>
-
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js")
+      .catch(error => console.error("Erreur SW:", error));
+  });
+}
+</script>
+</body>
+</html>
 </body>
 </html>
