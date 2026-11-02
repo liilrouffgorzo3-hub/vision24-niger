@@ -121,6 +121,9 @@
             animation: float 4s ease-in-out infinite;
         }
     </style>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0b0f19">
+<meta name="description" content="Radio Télévision Vision 24 Niger : directs, Radio 95.1 FM, actualités et services média.">
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-brand-orange selection:text-white">
 
@@ -148,6 +151,7 @@
             <nav class="hidden xl:flex items-center space-x-6 text-sm font-medium text-gray-300">
                 <a href="#hero" class="hover:text-brand-orange transition-colors text-white font-semibold">Accueil</a>
                 <a href="#live-tv" class="hover:text-brand-orange transition-colors flex items-center gap-1.5"><i class="fa-solid fa-tv text-xs text-brand-orange"></i> Direct TV</a>
+                <a href="#diffusion-section" class="hover:text-brand-orange transition-colors">Studio de diffusion</a>
                 <a href="#radio-section" class="hover:text-brand-orange transition-colors flex items-center gap-1.5"><i class="fa-solid fa-radio text-xs text-brand-green"></i> Radio 95.1 FM</a>
                 <a href="#catalog" class="hover:text-brand-orange transition-colors">Grille & Replay</a>
                 <a href="#services" class="hover:text-brand-orange transition-colors text-brand-orange font-semibold"><i class="fa-solid fa-briefcase"></i> Prestations & Devis</a>
@@ -348,6 +352,17 @@
 
         <!-- STICKY / EMBEDDED RADIO PLAYER BAR (95.1 MHz) -->
         <section id="radio-section" class="py-6 px-4 lg:px-12">
+
+<div class="max-w-7xl mx-auto mb-4 bg-slate-900 border border-slate-800 rounded-xl p-4">
+  <audio id="v24RadioAudio" preload="none"></audio>
+  <label for="v24RadioStreamUrl" class="block text-xs text-gray-300 mb-2">Flux audio Internet de Radio 95.1 FM</label>
+  <div class="flex flex-col sm:flex-row gap-2">
+    <input id="v24RadioStreamUrl" type="url" placeholder="https://adresse-du-flux-radio/stream" class="flex-1 bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white">
+    <button onclick="v24SaveRadioStream()" class="bg-brand-green text-white rounded-xl px-4 py-3 text-sm font-bold">Enregistrer le flux</button>
+  </div>
+  <p class="text-xs text-gray-500 mt-2">La fréquence 95.1 MHz est affichée dans l'application, mais pour écouter sur Internet il faut l'adresse réelle du flux audio de la station. Après configuration, le bouton radio lit ce flux dans l'application.</p>
+</div>
+
             <div class="max-w-7xl mx-auto bg-gradient-to-r from-slate-900 via-brand-black to-slate-900 border border-brand-green/40 rounded-2xl p-4 lg:p-6 shadow-2xl relative overflow-hidden">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
                     
@@ -532,7 +547,48 @@
         </section>
 
         <!-- INTERACTIVE SERVICES & AUTOMATIC ESTIMATE CALCULATOR -->
-        <section id="services" class="py-12 px-4 lg:px-12 bg-slate-950 border-t border-b border-slate-800 my-8">
+        
+<section id="diffusion-section" class="py-10 px-4 lg:px-12 max-w-7xl mx-auto">
+  <div class="mb-6">
+    <p class="text-brand-orange text-xs font-black tracking-[.2em] uppercase">Studio média</p>
+    <h2 class="text-2xl sm:text-3xl font-black text-white mt-2">Directs & réseaux sociaux</h2>
+    <p class="text-sm text-gray-400 mt-2 max-w-3xl">Enregistre les liens de tes directs, ouvre les outils officiels et partage les annonces avec ton public.</p>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+      <div class="flex items-center gap-3 mb-3"><i class="fa-brands fa-youtube text-red-500 text-2xl"></i><h3 class="font-bold text-white">YouTube Live</h3></div>
+      <label for="v24YoutubeUrl" class="block text-xs text-gray-300 mb-2">Lien du direct YouTube</label>
+      <input id="v24YoutubeUrl" type="url" placeholder="https://www.youtube.com/watch?v=..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white">
+      <div class="flex flex-wrap gap-2 mt-3">
+        <button onclick="v24SaveLinks()" class="bg-brand-orange text-white rounded-lg px-3 py-2 text-xs font-bold">Enregistrer</button>
+        <button onclick="v24OpenPlatform('youtube')" class="bg-slate-700 text-white rounded-lg px-3 py-2 text-xs font-bold">Voir le direct</button>
+        <a href="https://studio.youtube.com/" target="_blank" rel="noopener noreferrer" class="bg-red-600 text-white rounded-lg px-3 py-2 text-xs font-bold">YouTube Studio</a>
+      </div>
+    </div>
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+      <div class="flex items-center gap-3 mb-3"><i class="fa-brands fa-facebook text-blue-500 text-2xl"></i><h3 class="font-bold text-white">Facebook Live</h3></div>
+      <label for="v24FacebookUrl" class="block text-xs text-gray-300 mb-2">Lien du direct Facebook</label>
+      <input id="v24FacebookUrl" type="url" placeholder="https://www.facebook.com/..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white">
+      <div class="flex flex-wrap gap-2 mt-3">
+        <button onclick="v24SaveLinks()" class="bg-brand-orange text-white rounded-lg px-3 py-2 text-xs font-bold">Enregistrer</button>
+        <button onclick="v24OpenPlatform('facebook')" class="bg-slate-700 text-white rounded-lg px-3 py-2 text-xs font-bold">Voir le direct</button>
+        <a href="https://www.facebook.com/live/producer/" target="_blank" rel="noopener noreferrer" class="bg-blue-600 text-white rounded-lg px-3 py-2 text-xs font-bold">Facebook Live Producer</a>
+      </div>
+    </div>
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+      <div class="flex items-center gap-3 mb-3"><i class="fa-brands fa-whatsapp text-green-500 text-2xl"></i><h3 class="font-bold text-white">WhatsApp</h3></div>
+      <label for="v24ShareText" class="block text-xs text-gray-300 mb-2">Message à partager</label>
+      <textarea id="v24ShareText" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white">Nous sommes en direct sur Radio Télévision VISION 24 NIGER ! Rejoignez-nous.</textarea>
+      <button onclick="v24ShareWhatsApp()" class="mt-3 bg-green-600 text-white rounded-lg px-3 py-2 text-xs font-bold"><i class="fa-brands fa-whatsapp mr-1"></i> Partager sur WhatsApp</button>
+    </div>
+  </div>
+  <div class="mt-4 bg-amber-950/40 border border-amber-800/70 text-amber-100 rounded-xl p-4 text-xs leading-relaxed">
+    <strong>Important :</strong> les liens et le partage fonctionnent depuis l'application. Pour diffuser automatiquement sur les comptes, il faut encore configurer OAuth/API, authentification administrateur et autorisations officielles. Ne place jamais de mot de passe ou jeton secret dans cette page.
+  </div>
+  <div id="v24LinkStatus" class="text-xs text-gray-400 mt-3" role="status" aria-live="polite"></div>
+</section>
+
+<section id="services" class="py-12 px-4 lg:px-12 bg-slate-950 border-t border-b border-slate-800 my-8">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center max-w-3xl mx-auto mb-12">
                     <span class="text-brand-orange font-black text-xs tracking-widest uppercase bg-brand-orange/10 px-3.5 py-1.5 rounded-full border border-brand-orange/20">AGENCE DE COMMUNICATION</span>
@@ -827,30 +883,16 @@
         }
 
         function playMainLiveTV() {
-            document.getElementById('live-tv').scrollIntoView({ behavior: 'smooth' });
-            startTVStream();
+            document.getElementById('diffusion-section')?.scrollIntoView({behavior:'smooth'});
+            let links = {};
+            try { links = JSON.parse(localStorage.getItem('v24_social_live_links') || '{}'); } catch (_) {}
+            const url = links.youtube || links.facebook;
+            if (url) window.open(url, '_blank', 'noopener,noreferrer');
+            else alert('Ajoute le lien de ton direct Facebook ou YouTube dans Studio de diffusion.');
         }
 
         // Radio Player Controls (95.1 FM)
-        function toggleAudioRadio() {
-            const playBtn = document.getElementById('radioPlayBtn');
-            const equalizer = document.getElementById('equalizer');
-            const trackTitle = document.getElementById('radioTrackTitle');
-
-            if (!isRadioPlaying) {
-                isRadioPlaying = true;
-                playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-                playBtn.classList.replace('bg-brand-green', 'bg-brand-orange');
-                equalizer.classList.remove('paused', 'hidden');
-                trackTitle.innerText = "EN DIRECT : Radio Vision 24 FM 95.1 MHz - Émission Spéciale";
-            } else {
-                isRadioPlaying = false;
-                playBtn.innerHTML = '<i class="fa-solid fa-play ml-0.5"></i>';
-                playBtn.classList.replace('bg-brand-orange', 'bg-brand-green');
-                equalizer.classList.add('paused');
-                trackTitle.innerText = "Radio Vision 24 FM 95.1 MHz (En Pause)";
-            }
-        }
+        function toggleAudioRadio() { return window.v24ToggleRadio(); }
 
         // Live Reactions Counter
         function sendReaction(type) {
@@ -958,5 +1000,141 @@
             // Placeholder real-time filter handler
         }
     </script>
+
+<script>
+(function () {
+  function safeUrl(value) {
+    if (!value) return true;
+    try { const u = new URL(value); return u.protocol === 'https:' || u.protocol === 'http:'; }
+    catch (_) { return false; }
+  }
+  window.v24LoadSocialLinks = function () {
+    let links = {};
+    try { links = JSON.parse(localStorage.getItem('v24_social_live_links') || '{}'); } catch (_) {}
+    const y = document.getElementById('v24YoutubeUrl');
+    const f = document.getElementById('v24FacebookUrl');
+    if (y) y.value = links.youtube || '';
+    if (f) f.value = links.facebook || '';
+  };
+  window.v24SaveLinks = function () {
+    const youtube = (document.getElementById('v24YoutubeUrl')?.value || '').trim();
+    const facebook = (document.getElementById('v24FacebookUrl')?.value || '').trim();
+    if (!safeUrl(youtube) || !safeUrl(facebook)) { alert('Les liens doivent être des URL valides en http:// ou https://'); return; }
+    localStorage.setItem('v24_social_live_links', JSON.stringify({youtube, facebook}));
+    const s = document.getElementById('v24LinkStatus');
+    if (s) s.textContent = 'Liens enregistrés sur cet appareil.';
+  };
+  window.v24OpenPlatform = function (platform) {
+    let links = {};
+    try { links = JSON.parse(localStorage.getItem('v24_social_live_links') || '{}'); } catch (_) {}
+    const field = document.getElementById(platform === 'youtube' ? 'v24YoutubeUrl' : 'v24FacebookUrl');
+    const url = links[platform] || (field ? field.value.trim() : '');
+    if (!safeUrl(url) || !url) { alert('Enregistre d’abord un lien de direct valide.'); return; }
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+  window.v24ShareWhatsApp = function () {
+    let links = {};
+    try { links = JSON.parse(localStorage.getItem('v24_social_live_links') || '{}'); } catch (_) {}
+    const message = (document.getElementById('v24ShareText')?.value || 'VISION 24 NIGER en direct') +
+      ((links.youtube || links.facebook) ? '\n' + (links.youtube || links.facebook) : '');
+    window.open('https://wa.me/?text=' + encodeURIComponent(message), '_blank', 'noopener,noreferrer');
+  };
+  window.v24SaveRadioStream = function () {
+    const field = document.getElementById('v24RadioStreamUrl');
+    const url = (field?.value || '').trim();
+    if (!safeUrl(url)) { alert('L’adresse du flux doit commencer par http:// ou https://'); return; }
+    localStorage.setItem('v24_radio_stream_url', url);
+    const audio = document.getElementById('v24RadioAudio');
+    if (audio) { audio.pause(); audio.src = url; audio.load(); }
+    const title = document.getElementById('radioTrackTitle');
+    if (title) title.textContent = url ? 'Radio Vision 24 FM 95.1 MHz — flux configuré' : 'Radio Vision 24 FM 95.1 MHz';
+    alert(url ? 'Flux radio enregistré sur cet appareil.' : 'Flux radio effacé.');
+  };
+  window.v24ToggleRadio = async function () {
+    const audio = document.getElementById('v24RadioAudio');
+    let url = localStorage.getItem('v24_radio_stream_url') || '';
+    if (!url) {
+      document.getElementById('radio-section')?.scrollIntoView({behavior:'smooth'});
+      alert('Pour écouter la radio, renseigne d’abord l’adresse réelle du flux audio dans la section Radio 95.1 FM.');
+      document.getElementById('v24RadioStreamUrl')?.focus();
+      return;
+    }
+    if (audio.src !== url) audio.src = url;
+    try {
+      if (audio.paused) {
+        await audio.play();
+        const btn = document.getElementById('radioPlayBtn');
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+        const title = document.getElementById('radioTrackTitle');
+        if (title) title.textContent = 'EN DIRECT : Radio Vision 24 FM 95.1 MHz';
+      } else {
+        audio.pause();
+        const btn = document.getElementById('radioPlayBtn');
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-play ml-0.5"></i>';
+        const title = document.getElementById('radioTrackTitle');
+        if (title) title.textContent = 'Radio Vision 24 FM 95.1 MHz (En pause)';
+      }
+    } catch (_) { alert('Lecture impossible : vérifie le lien du flux, son accès HTTPS et le format audio.'); }
+  };
+  document.addEventListener('DOMContentLoaded', function () {
+    window.v24LoadSocialLinks();
+    const saved = localStorage.getItem('v24_radio_stream_url') || '';
+    const field = document.getElementById('v24RadioStreamUrl');
+    const audio = document.getElementById('v24RadioAudio');
+    if (field) field.value = saved;
+    if (audio && saved) audio.src = saved;
+  });
+})();
+</script>
+
+
+<section id="v24-publications" class="py-8 px-4 lg:px-12 max-w-7xl mx-auto"><div class="mb-5"><p class="text-brand-orange text-xs font-black tracking-widest uppercase">Actualités VISION 24</p><h2 class="text-2xl font-black text-white">Dernières publications</h2></div><div id="v24PublicPosts" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"><p class="text-gray-400 text-sm">Les actualités seront affichées ici après configuration de la base de données.</p></div></section>
+<!-- VISION24 ADMINISTRATION : accès protégé par Supabase Auth + rôle public.profiles -->
+<button id="v24AdminOpen" type="button" class="fixed bottom-4 right-4 z-40 bg-brand-orange text-white font-black text-xs px-4 py-3 rounded-full shadow-xl" onclick="document.getElementById('v24AdminPanel').classList.remove('hidden')">ADMIN VISION24</button>
+<div id="v24AdminPanel" class="hidden fixed inset-0 z-50 bg-slate-950/95 overflow-y-auto p-3 sm:p-6">
+ <div class="max-w-5xl mx-auto bg-slate-900 border border-slate-700 rounded-2xl p-4 sm:p-6 min-h-[80vh]">
+  <div class="flex items-center justify-between gap-3 mb-5"><div><p class="text-brand-orange text-xs font-black tracking-widest">VISION 24 STUDIO MÉDIA</p><h2 class="text-2xl font-black text-white">Espace administrateur</h2></div><button class="bg-slate-700 text-white rounded-lg px-3 py-2" onclick="document.getElementById('v24AdminPanel').classList.add('hidden')">Fermer ✕</button></div>
+  <div id="v24AdminLogin" class="max-w-md mx-auto bg-slate-950 border border-slate-700 rounded-xl p-5">
+   <h3 class="text-white font-bold text-lg mb-3">Connexion administrateur</h3>
+   <label class="block text-xs text-gray-300 mb-1" for="v24AdminEmail">Adresse e-mail</label><input id="v24AdminEmail" type="email" autocomplete="username" class="w-full mb-3 bg-slate-900 border border-slate-700 rounded-lg p-3 text-white" placeholder="admin@vision24...">
+   <label class="block text-xs text-gray-300 mb-1" for="v24AdminPassword">Mot de passe</label><input id="v24AdminPassword" type="password" autocomplete="current-password" class="w-full mb-3 bg-slate-900 border border-slate-700 rounded-lg p-3 text-white" placeholder="Mot de passe Supabase">
+   <button id="v24AdminLoginBtn" class="w-full bg-brand-orange text-white font-bold rounded-lg p-3">Se connecter</button><p id="v24AdminMessage" class="text-xs text-amber-300 mt-3" role="status"></p>
+  </div>
+  <div id="v24AdminApp" class="hidden">
+   <div class="flex flex-wrap items-center justify-between gap-3 mb-4"><p id="v24AdminWho" class="text-sm text-gray-300"></p><button id="v24AdminLogout" class="bg-slate-700 text-white rounded-lg px-3 py-2 text-xs">Déconnexion</button></div>
+   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <section class="bg-slate-950 border border-slate-700 rounded-xl p-4"><h3 class="text-white font-bold mb-3">Publier une actualité</h3><input id="v24PubTitle" class="w-full mb-2 bg-slate-900 border border-slate-700 rounded-lg p-3 text-white" placeholder="Titre"><textarea id="v24PubContent" rows="3" class="w-full mb-2 bg-slate-900 border border-slate-700 rounded-lg p-3 text-white" placeholder="Texte de la publication"></textarea><input id="v24PubMedia" type="url" class="w-full mb-2 bg-slate-900 border border-slate-700 rounded-lg p-3 text-white" placeholder="URL image (facultatif)"><div class="flex gap-2"><button id="v24SaveDraft" class="bg-slate-700 text-white rounded-lg px-3 py-2 text-xs">Enregistrer brouillon</button><button id="v24Publish" class="bg-brand-orange text-white rounded-lg px-3 py-2 text-xs">Publier sur le site</button></div></section>
+    <section class="bg-slate-950 border border-slate-700 rounded-xl p-4"><h3 class="text-white font-bold mb-3">Radio Vision 24 — 95.1 FM</h3><input id="v24AdminRadioUrl" type="url" class="w-full mb-2 bg-slate-900 border border-slate-700 rounded-lg p-3 text-white" placeholder="URL réelle du flux audio HTTPS"><button id="v24SaveRadio" class="bg-brand-green text-white rounded-lg px-3 py-2 text-xs">Enregistrer le flux radio</button><p class="text-xs text-gray-400 mt-2">Le flux doit être fourni par l'opérateur radio. La fréquence FM seule ne suffit pas.</p></section>
+    <section class="bg-slate-950 border border-slate-700 rounded-xl p-4"><h3 class="text-white font-bold mb-3">Ajouter une vidéo</h3><input id="v24VideoTitle" class="w-full mb-2 bg-slate-900 border border-slate-700 rounded-lg p-3 text-white" placeholder="Titre de la vidéo"><input id="v24VideoUrl" type="url" class="w-full mb-2 bg-slate-900 border border-slate-700 rounded-lg p-3 text-white" placeholder="URL vidéo ou YouTube"><textarea id="v24VideoDesc" rows="2" class="w-full mb-2 bg-slate-900 border border-slate-700 rounded-lg p-3 text-white" placeholder="Description"></textarea><button id="v24SaveVideo" class="bg-brand-orange text-white rounded-lg px-3 py-2 text-xs">Enregistrer la vidéo</button></section>
+    <section class="bg-slate-950 border border-slate-700 rounded-xl p-4"><h3 class="text-white font-bold mb-3">Réseaux sociaux</h3><p class="text-xs text-gray-300 mb-3">Les comptes ne sont pas encore connectés à leurs API. Ces accès se feront par autorisation officielle OAuth, sans enregistrer de mot de passe de réseau social dans l'application.</p><div class="flex flex-wrap gap-2"><a class="bg-blue-700 text-white rounded-lg px-3 py-2 text-xs" href="https://developers.facebook.com/" target="_blank" rel="noopener">Meta for Developers</a><a class="bg-red-700 text-white rounded-lg px-3 py-2 text-xs" href="https://console.cloud.google.com/" target="_blank" rel="noopener">Google Cloud / YouTube</a><a class="bg-green-700 text-white rounded-lg px-3 py-2 text-xs" href="https://developers.facebook.com/docs/whatsapp/" target="_blank" rel="noopener">WhatsApp Cloud API</a></div></section>
+   </div>
+   <section class="bg-slate-950 border border-slate-700 rounded-xl p-4 mt-4"><div class="flex items-center justify-between gap-2"><h3 class="text-white font-bold">Publications récentes</h3><button id="v24RefreshPosts" class="text-xs bg-slate-700 text-white rounded-lg px-3 py-2">Actualiser</button></div><div id="v24AdminPosts" class="text-xs text-gray-300 mt-3">Connecte-toi pour charger les publications.</div></section>
+   <p id="v24AdminNotice" class="text-xs text-amber-300 mt-4" role="status"></p>
+  </div>
+ </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase-config.js"></script>
+<script>
+(function(){
+ const panel=document.getElementById('v24AdminPanel'), login=document.getElementById('v24AdminLogin'), app=document.getElementById('v24AdminApp');
+ let client=null, user=null;
+ const msg=(t)=>{const e=document.getElementById('v24AdminMessage');if(e)e.textContent=t;};
+ const notice=(t)=>{const e=document.getElementById('v24AdminNotice');if(e)e.textContent=t;};
+ function init(){ if(!window.supabase||!window.V24_SUPABASE_URL||!window.V24_SUPABASE_PUBLISHABLE_KEY){msg('Configuration Supabase absente. Vérifie supabase-config.js.');return false;} client=window.supabase.createClient(window.V24_SUPABASE_URL,window.V24_SUPABASE_PUBLISHABLE_KEY);return true; }
+ async function loadPublicPosts(){if(!init())return;const box=document.getElementById('v24PublicPosts');const {data,error}=await client.from('publications').select('id,title,content,media_url,published_at').eq('status','published').order('published_at',{ascending:false}).limit(6);if(error||!data||!data.length)return;box.innerHTML='';data.forEach(p=>{const card=document.createElement('article');card.className='bg-slate-900 border border-slate-800 rounded-xl overflow-hidden';if(p.media_url){const img=document.createElement('img');img.src=p.media_url;img.alt=p.title;img.className='w-full h-44 object-cover';img.loading='lazy';card.append(img);}const body=document.createElement('div');body.className='p-4';const h=document.createElement('h3');h.className='text-white font-bold mb-2';h.textContent=p.title;const para=document.createElement('p');para.className='text-sm text-gray-300 whitespace-pre-wrap';para.textContent=p.content||'';body.append(h,para);card.append(body);box.append(card);});}
+ async function verify(){ if(!client)return; const {data:{session}}=await client.auth.getSession(); if(!session){login.classList.remove('hidden');app.classList.add('hidden');return;} const {data:profile,error}=await client.from('profiles').select('role').eq('id',session.user.id).maybeSingle(); if(error||!profile||profile.role!=='admin'){await client.auth.signOut();login.classList.remove('hidden');app.classList.add('hidden');msg('Accès refusé : ce compte ne possède pas le rôle administrateur.');return;} user=session.user;login.classList.add('hidden');app.classList.remove('hidden');document.getElementById('v24AdminWho').textContent='Connecté : '+user.email+' — Administrateur';await loadRadio();await loadPosts(); }
+ async function signIn(){if(!init())return;msg('Connexion en cours…');const email=document.getElementById('v24AdminEmail').value.trim(),password=document.getElementById('v24AdminPassword').value;const {error}=await client.auth.signInWithPassword({email,password});if(error){msg('Connexion impossible : '+error.message);return;}msg('');await verify();}
+ async function loadRadio(){const {data,error}=await client.from('radio_settings').select('stream_url').eq('id',true).maybeSingle();if(!error&&data){document.getElementById('v24AdminRadioUrl').value=data.stream_url||'';if(data.stream_url){const f=document.getElementById('v24RadioStreamUrl');if(f)f.value=data.stream_url;localStorage.setItem('v24_radio_stream_url',data.stream_url);const a=document.getElementById('v24RadioAudio');if(a)a.src=data.stream_url;}}}
+ async function saveRadio(){const url=document.getElementById('v24AdminRadioUrl').value.trim();if(url&&!/^https?:\/\//i.test(url)){notice('URL du flux invalide.');return;}const {error}=await client.from('radio_settings').upsert({id:true,stream_url:url||null,updated_at:new Date().toISOString()});if(error){notice('Erreur radio : '+error.message);return;}if(url){localStorage.setItem('v24_radio_stream_url',url);const f=document.getElementById('v24RadioStreamUrl');if(f)f.value=url;const a=document.getElementById('v24RadioAudio');if(a){a.src=url;a.load();}}notice('Configuration radio enregistrée.');}
+ async function savePublication(status){const title=document.getElementById('v24PubTitle').value.trim();if(!title){notice('Le titre est obligatoire.');return;}const payload={title,content:document.getElementById('v24PubContent').value.trim(),media_url:document.getElementById('v24PubMedia').value.trim()||null,status,created_by:user.id,published_at:status==='published'?new Date().toISOString():null};const {error}=await client.from('publications').insert(payload);if(error){notice('Erreur publication : '+error.message);return;}notice(status==='published'?'Publication ajoutée au site public.':'Brouillon enregistré.');document.getElementById('v24PubTitle').value='';document.getElementById('v24PubContent').value='';document.getElementById('v24PubMedia').value='';await loadPosts();}
+ async function saveVideo(){const title=document.getElementById('v24VideoTitle').value.trim(),url=document.getElementById('v24VideoUrl').value.trim();if(!title||!url){notice('Titre et URL vidéo obligatoires.');return;}const {error}=await client.from('videos').insert({title,video_url:url,description:document.getElementById('v24VideoDesc').value.trim(),status:'published'});if(error){notice('Erreur vidéo : '+error.message);return;}notice('Vidéo enregistrée dans la base.');document.getElementById('v24VideoTitle').value='';document.getElementById('v24VideoUrl').value='';document.getElementById('v24VideoDesc').value='';}
+ async function loadPosts(){const box=document.getElementById('v24AdminPosts');const {data,error}=await client.from('publications').select('id,title,status,created_at').order('created_at',{ascending:false}).limit(20);if(error){box.textContent='Impossible de charger : '+error.message;return;}box.innerHTML='';if(!data.length){box.textContent='Aucune publication pour le moment.';return;}data.forEach(p=>{const row=document.createElement('div');row.className='flex items-center justify-between gap-3 border-t border-slate-800 py-2';const label=document.createElement('span');label.textContent=p.title+' — '+p.status;const del=document.createElement('button');del.className='text-red-300 px-2 py-1';del.textContent='Supprimer';del.onclick=async()=>{if(!confirm('Supprimer cette publication ?'))return;const {error}=await client.from('publications').delete().eq('id',p.id);if(error)notice(error.message);else await loadPosts();};row.append(label,del);box.append(row);});}
+ document.addEventListener('DOMContentLoaded',loadPublicPosts);
+ document.getElementById('v24AdminLoginBtn').addEventListener('click',signIn);document.getElementById('v24AdminLogout').addEventListener('click',async()=>{await client.auth.signOut();user=null;app.classList.add('hidden');login.classList.remove('hidden');msg('Déconnecté.');});document.getElementById('v24SaveRadio').addEventListener('click',saveRadio);document.getElementById('v24SaveDraft').addEventListener('click',()=>savePublication('draft'));document.getElementById('v24Publish').addEventListener('click',()=>savePublication('published'));document.getElementById('v24SaveVideo').addEventListener('click',saveVideo);document.getElementById('v24RefreshPosts').addEventListener('click',loadPosts);
+ document.getElementById('v24AdminOpen').addEventListener('click',()=>{if(init())verify();});
+})();
+</script>
+
 </body>
 </html>
